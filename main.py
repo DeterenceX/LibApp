@@ -9,8 +9,7 @@ from isbn_lookup import fetch_book_info
 current_library = "library.json"
 # --- Function definitions ---
 def divider():
-	print("---------------------------------")
-	
+	print("---------------------------------")	
 def load_library(filename = current_library):
 	if os.path.exists(filename):
 		with open(filename, "r") as file:
@@ -27,7 +26,6 @@ def load_library(filename = current_library):
 def save_library(library, filename = current_library):
 	with open(filename, "w") as file:
 		json.dump(library, file, indent = 4)
-	
 def save_to_library(book,  filename = current_library):
 	library = load_library(filename)
 	for entry in library:
@@ -39,8 +37,7 @@ def save_to_library(book,  filename = current_library):
 			
 	library.append(book)
 	with open(filename, "w") as file:
-		json.dump(library, file, indent = 4)
-	
+		json.dump(library, file, indent = 4)	
 def add_book():
 	user_input = input("Please scan book or enter book's ISBN: ").strip()
 	# This wont catch wrong numbers, or even correct numbers.
@@ -71,10 +68,8 @@ def add_book():
 		print(f"  Binding: {book['binding']}")
 	else:
 		print("Book not found.")
-
 def is_valid_isbn(query):
 	return query.isdigit() and len(query) in [10,13]
-
 def search_books(query, filename = current_library):
 	library = load_library(current_library)
 	query = query.lower().strip()
@@ -89,8 +84,7 @@ def search_books(query, filename = current_library):
 			continue
 		if query in title or query in author:
 			matches.append(book)
-	return matches
-		
+	return matches		
 def delete_book(filename = current_library):
 	library = load_library(filename)
 	if not library:
@@ -115,7 +109,6 @@ def delete_book(filename = current_library):
 		divider()
 		print("Book not found.")
 		divider()
-
 def view_library(filename = current_library):
 	library = load_library(filename)
 	if not library:
@@ -147,7 +140,6 @@ def view_library(filename = current_library):
 	for i, book in enumerate(library, start = 1):
 		print(f"{i}. {book['title']} by {book['author']} {book['binding'].upper()} (ISBN: {book['isbn']}) ")
 		divider()
-
 def edit_book(filename = current_library):
 	library = load_library(filename)
 	if not library:
